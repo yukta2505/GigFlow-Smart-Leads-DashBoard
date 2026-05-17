@@ -10,13 +10,16 @@ connectDB();
 
 const app = express();
 
-app.use(cors({
+const corsOptions = {
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+};
 
-app.options('*', cors());
+app.use(cors(corsOptions));
+
+// Fix: use '(.*)' instead of '*' for Express 5 compatibility
+app.options('(.*)', cors(corsOptions));
 
 app.use(express.json());
 
