@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { getLeads, createLead, updateLead, deleteLead, exportCSV } from '../controllers/lead.controller';
+import { protect } from '../middleware/auth';
+const router = Router();
+router.use(protect);
+router.get('/', getLeads);
+router.post('/', createLead);
+router.put('/:id', updateLead);
+router.delete('/:id', deleteLead);
+router.get('/export', exportCSV);
+export default router;
