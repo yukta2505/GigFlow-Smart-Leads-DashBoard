@@ -11,15 +11,17 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://gig-flow-smart-leads-dash-board.vercel.app/',  
-  ],
-  credentials: true,
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
+app.options('*', cors());
+
 app.use(express.json());
+
 app.use('/api/auth', authRoutes);
 app.use('/api/leads', leadRoutes);
 
-app.listen(process.env.PORT || 5000, () => console.log('Server running'));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
