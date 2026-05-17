@@ -1,70 +1,61 @@
 # GigFlow – Smart Leads Dashboard
 
-A full-stack Lead Management Dashboard built with the MERN stack (MongoDB, Express.js, React, Node.js) using TypeScript throughout. Manage your sales pipeline with powerful filtering, role-based access, and a clean responsive UI.
+A full-stack Lead Management Dashboard built with the MERN stack using TypeScript throughout. Manage your sales pipeline with powerful filtering, role-based access control, CSV export, and a clean responsive dark UI.
+
+## 🔗 Live Demo
+
+| | URL |
+|---|---|
+| 🌐 Frontend | https://gig-flow-smart-leads-dash-board-li2.vercel.app/ |
+| ⚙️ Backend API | https://gigflow-smart-leads-dashboard-backends.onrender.com/api |
+| 📁 GitHub | https://github.com/yukta2505/GigFlow-Smart-Leads-DashBoard |
 
 ---
 
-## Table of Contents
+## ✨ Features
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
-- [Running the App](#running-the-app)
-- [Docker Setup](#docker-setup)
-- [API Documentation](#api-documentation)
-- [Role-Based Access Control](#role-based-access-control)
-- [Deployment](#deployment)
-- [Screenshots](#screenshots)
-
----
-
-## Features
-
-### Core
+### Core Features
 - **JWT Authentication** — Register, login, protected routes, bcrypt password hashing
 - **Lead Management (CRUD)** — Create, view, update, and delete leads
 - **Advanced Filtering** — Filter by status, source, search by name/email, sort by date
 - **Multi-filter Support** — All filters work together simultaneously
-- **Backend Pagination** — 10 records per page with metadata
+- **Backend Pagination** — 10 records per page with total/pages metadata
 
 ### Mandatory Additional Features
 - **Debounced Search** — 400ms debounce to avoid excessive API calls
-- **CSV Export** — Download all leads as a `.csv` file
-- **Role-Based Access Control (RBAC)** — Admin and Sales User roles
+- **CSV Export** — Download all leads as a `.csv` file instantly
+- **Role-Based Access Control** — Admin and Sales User roles with different permissions
 - **Docker Support** — Fully containerized with Docker Compose
 
 ### Bonus
-- **Dark Mode** — Toggle between light and dark themes
+- **Dark Mode UI** — Professional dark dashboard design throughout
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
 ### Frontend
 | Technology | Purpose |
 |---|---|
-| React.js + TypeScript | UI framework |
-| TailwindCSS | Styling |
-| React Router DOM | Client-side routing |
-| Axios | HTTP client |
-| Context API | Global state management |
+| React.js + TypeScript | UI framework with full type safety |
+| TailwindCSS | Utility-first styling |
+| React Router DOM | Client-side routing with protected routes |
+| Axios | HTTP client with auth interceptor |
+| Context API | Global auth state management |
 
 ### Backend
 | Technology | Purpose |
 |---|---|
-| Node.js + Express.js | Server framework |
-| TypeScript | Type safety |
+| Node.js + Express.js | REST API server |
+| TypeScript | End-to-end type safety |
 | MongoDB + Mongoose | Database and ODM |
-| JWT (jsonwebtoken) | Authentication |
-| bcryptjs | Password hashing |
-| json2csv | CSV export |
+| JWT (jsonwebtoken) | Stateless authentication |
+| bcryptjs | Secure password hashing |
+| json2csv | CSV export functionality |
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 gigflow/
@@ -75,22 +66,21 @@ gigflow/
 │   │   ├── config/
 │   │   │   └── db.ts                 # MongoDB connection
 │   │   ├── controllers/
-│   │   │   ├── auth.controller.ts    # Register & login logic
+│   │   │   ├── auth.controller.ts    # Register & login
 │   │   │   └── lead.controller.ts    # Lead CRUD + CSV export
 │   │   ├── middleware/
-│   │   │   └── auth.ts               # JWT protect + adminOnly middleware
+│   │   │   └── auth.ts               # JWT protect + adminOnly
 │   │   ├── models/
-│   │   │   ├── User.ts               # User schema with password hashing
+│   │   │   ├── User.ts               # User schema
 │   │   │   └── Lead.ts               # Lead schema
 │   │   ├── routes/
-│   │   │   ├── auth.routes.ts        # /api/auth routes
-│   │   │   └── lead.routes.ts        # /api/leads routes
+│   │   │   ├── auth.routes.ts        # /api/auth
+│   │   │   └── lead.routes.ts        # /api/leads
 │   │   ├── types/
 │   │   │   └── index.ts              # Shared TypeScript interfaces
-│   │   └── index.ts                  # Express app entry point
-│   ├── .env                          # Environment variables (not committed)
-│   ├── .env.example                  # Example env file
-│   ├── nodemon.json                  # Nodemon config
+│   │   └── index.ts                  # Express entry point
+│   ├── .env.example
+│   ├── nodemon.json
 │   ├── tsconfig.json
 │   ├── Dockerfile
 │   └── package.json
@@ -100,18 +90,18 @@ gigflow/
     │   ├── api/
     │   │   └── axiosInstance.ts      # Axios with auth interceptor
     │   ├── components/
-    │   │   ├── Filters.tsx           # Status, source, search, sort filters
+    │   │   ├── Filters.tsx           # Filters + debounced search
     │   │   ├── LeadForm.tsx          # Add/Edit lead modal
     │   │   └── Pagination.tsx        # Page navigation
     │   ├── context/
-    │   │   └── AuthContext.tsx       # Auth state (user, token, login, logout)
+    │   │   └── AuthContext.tsx       # Auth state management
     │   ├── pages/
-    │   │   ├── Dashboard.tsx         # Main leads table view
+    │   │   ├── Dashboard.tsx         # Main leads table
     │   │   ├── Login.tsx             # Login page
     │   │   └── Register.tsx          # Register page
     │   ├── types/
-    │   │   └── index.ts              # Lead, User, AuthContext interfaces
-    │   ├── App.tsx                   # Routes + PrivateRoute guard
+    │   │   └── index.ts              # TypeScript interfaces
+    │   ├── App.tsx                   # Routes + PrivateRoute
     │   └── index.css                 # Tailwind directives
     ├── tailwind.config.js
     ├── tsconfig.json
@@ -121,70 +111,40 @@ gigflow/
 
 ---
 
-## Prerequisites
+## ⚙️ Prerequisites
 
-Make sure you have the following installed:
-
-- [Node.js](https://nodejs.org/) v18 or higher
-- [npm](https://www.npmjs.com/) v9 or higher
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) account (free tier works)
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (for Docker setup)
-- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/) v18+
+- [npm](https://www.npmjs.com/) v9+
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) account (free tier)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (optional)
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/gigflow.git
-cd gigflow
+git clone https://github.com/yukta2505/GigFlow-Smart-Leads-DashBoard.git
+cd GigFlow-Smart-Leads-DashBoard
 ```
 
-### 2. Set up MongoDB Atlas
-
-1. Go to [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas) and create a free account
-2. Create a new cluster (free M0 tier)
-3. Click **Connect** → **Drivers** → copy the connection string
-4. Replace `<password>` with your database user's password in the string
-
-### 3. Configure environment variables
-
-Copy the example file and fill in your values:
+### 2. Set up environment variables
 
 ```bash
 cd backend
 cp .env.example .env
 ```
 
-Edit `backend/.env` with your values (see [Environment Variables](#environment-variables) below).
-
----
-
-## Environment Variables
-
-### `backend/.env`
+Edit `backend/.env`:
 
 ```env
 MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/gigflow?retryWrites=true&w=majority
-JWT_SECRET=your_super_secret_key_here
+JWT_SECRET=your_secret_key_here
 PORT=5000
 ```
 
-### `frontend/.env` (optional)
-
-```env
-REACT_APP_API_URL=http://localhost:5000/api
-```
-
-> **Never commit `.env` files.** They are already in `.gitignore`.
-
----
-
-## Running the App
-
-### Backend
+### 3. Run backend
 
 ```bash
 cd backend
@@ -192,11 +152,9 @@ npm install
 npm run dev
 ```
 
-Server starts at `http://localhost:5000`
+Runs at `http://localhost:5000`
 
-### Frontend
-
-Open a new terminal:
+### 4. Run frontend
 
 ```bash
 cd frontend
@@ -204,18 +162,15 @@ npm install
 npm start
 ```
 
-App opens at `http://localhost:3000`
+Runs at `http://localhost:3000`
 
 ---
 
-## Docker Setup
+## 🐳 Docker Setup
 
-Make sure **Docker Desktop is running** before executing these commands.
-
-### Build and run all services
+Make sure Docker Desktop is running, then from the root folder:
 
 ```bash
-# From the root gigflow/ directory
 docker-compose up --build
 ```
 
@@ -224,151 +179,87 @@ docker-compose up --build
 | Frontend | http://localhost:80 |
 | Backend | http://localhost:5000 |
 
-### Stop all services
-
 ```bash
 docker-compose down
 ```
 
-### Rebuild after code changes
-
-```bash
-docker-compose up --build --force-recreate
-```
-
 ---
 
-## API Documentation
+## 📡 API Documentation
 
 ### Base URL
 ```
-http://localhost:5000/api
+https://gigflow-smart-leads-dashboard-backends.onrender.com/api
 ```
 
 ### Auth Endpoints
 
-#### Register
-```
-POST /auth/register
-```
+#### POST `/auth/register`
 **Body:**
 ```json
 {
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "Yukta Baid",
+  "email": "yukta@example.com",
   "password": "password123",
-  "role": "sales"
+  "role": "admin"
 }
 ```
 **Response:**
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIs...",
-  "user": {
-    "id": "664abc...",
-    "name": "John Doe",
-    "email": "john@example.com",
-    "role": "sales"
-  }
+  "user": { "id": "...", "name": "Yukta Baid", "email": "yukta@example.com", "role": "admin" }
 }
 ```
 
-#### Login
-```
-POST /auth/login
-```
+#### POST `/auth/login`
 **Body:**
 ```json
 {
-  "email": "john@example.com",
+  "email": "yukta@example.com",
   "password": "password123"
 }
 ```
-**Response:** Same as register
 
 ---
 
 ### Lead Endpoints
 
-All lead endpoints require the Authorization header:
-```
-Authorization: Bearer <your_jwt_token>
-```
+All require header: `Authorization: Bearer <token>`
 
-#### Get All Leads (with filters + pagination)
-```
-GET /leads
-```
-**Query Parameters:**
+#### GET `/leads` — Get paginated leads with filters
 
-| Parameter | Type | Description | Example |
-|---|---|---|---|
-| `status` | string | Filter by lead status | `Qualified` |
-| `source` | string | Filter by lead source | `Instagram` |
-| `search` | string | Search name or email | `rahul` |
-| `sort` | string | Sort order | `Latest` or `Oldest` |
-| `page` | number | Page number | `1` |
-
-**Example Request:**
-```
-GET /leads?status=Qualified&source=Instagram&search=rahul&sort=Latest&page=1
-```
+| Parameter | Options | Example |
+|---|---|---|
+| `status` | New, Contacted, Qualified, Lost | `Qualified` |
+| `source` | Website, Instagram, Referral | `Instagram` |
+| `search` | any string | `rahul` |
+| `sort` | Latest, Oldest | `Latest` |
+| `page` | number | `1` |
 
 **Response:**
 ```json
 {
-  "leads": [
-    {
-      "_id": "664abc123",
-      "name": "Rahul Sharma",
-      "email": "rahul@example.com",
-      "status": "Qualified",
-      "source": "Instagram",
-      "createdAt": "2026-05-17T07:00:00.000Z"
-    }
-  ],
+  "leads": [...],
   "total": 42,
   "page": 1,
   "pages": 5
 }
 ```
 
-#### Create Lead
-```
-POST /leads
-```
-**Body:**
+#### POST `/leads` — Create lead
 ```json
 {
-  "name": "Priya Patel",
-  "email": "priya@example.com",
+  "name": "Rahul Sharma",
+  "email": "rahul@example.com",
   "status": "New",
   "source": "Website"
 }
 ```
 
-#### Update Lead
-```
-PUT /leads/:id
-```
-**Body:** Any subset of lead fields
-```json
-{
-  "status": "Contacted"
-}
-```
-
-#### Delete Lead
-```
-DELETE /leads/:id
-```
-> **Admin only.** Sales users will receive a 403 response.
-
-#### Export Leads as CSV
-```
-GET /leads/export
-```
-Downloads a `leads.csv` file with all lead data.
+#### PUT `/leads/:id` — Update lead
+#### DELETE `/leads/:id` — Delete lead (Admin only)
+#### GET `/leads/export` — Download CSV
 
 ---
 
@@ -378,15 +269,14 @@ Downloads a `leads.csv` file with all lead data.
 |---|---|
 | 200 | Success |
 | 201 | Created |
-| 400 | Bad Request (validation error) |
-| 401 | Unauthorized (missing or invalid token) |
-| 403 | Forbidden (insufficient role) |
+| 401 | Unauthorized |
+| 403 | Forbidden (role) |
 | 404 | Not Found |
-| 500 | Internal Server Error |
+| 500 | Server Error |
 
 ---
 
-## Role-Based Access Control
+## 👥 Role-Based Access Control
 
 | Feature | Admin | Sales User |
 |---|---|---|
@@ -395,9 +285,25 @@ Downloads a `leads.csv` file with all lead data.
 | Edit lead | ✅ | ✅ |
 | Delete lead | ✅ | ❌ |
 | Export CSV | ✅ | ✅ |
-| Filter & search | ✅ | ✅ |
-
-To create an admin user, set `"role": "admin"` during registration.
 
 ---
 
+## 🌍 Deployment
+
+### Backend — Render
+- Build: `npm install && npm run build`
+- Start: `node dist/index.js`
+- Env vars set via Render dashboard
+
+### Frontend — Vercel
+- Framework: Create React App
+- Env: `REACT_APP_API_URL=https://gigflow-smart-leads-dashboard-backends.onrender.com/api`
+
+---
+
+## 👩‍💻 Author
+
+**Yukta Baid**
+GitHub: [@yukta2505](https://github.com/yukta2505)
+
+---
